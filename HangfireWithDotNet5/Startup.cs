@@ -1,4 +1,6 @@
 using Hangfire;
+using HangfireWithDotNet5.Services;
+using HangfireWithDotNet5.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +36,8 @@ namespace HangfireWithDotNet5
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hangfire With DotNet 5", Version = "v1" });
             });
 
+            services.AddScoped<IJobServices, JobServices>();
+            
             services.AddHangfire(x =>
             {
                 x.UseSqlServerStorage(Configuration.GetConnectionString("HangfireDBConnection"));
