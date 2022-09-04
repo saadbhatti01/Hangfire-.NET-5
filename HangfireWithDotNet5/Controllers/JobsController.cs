@@ -40,7 +40,7 @@ namespace HangfireWithDotNet5.Controllers
         [HttpGet("/ReccuringJob")]
         public ActionResult CreateReccuringJob()
         {
-            _recurringJobManager.AddOrUpdate("jobId", () => _jobTestService.ReccuringJob(), Cron.MinuteInterval(1));
+            _recurringJobManager.AddOrUpdate("jobId", () => _jobTestService.ReccuringJob(), Cron.Minutely());
             return Ok();
         }
 
