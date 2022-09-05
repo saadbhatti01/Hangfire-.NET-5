@@ -40,7 +40,7 @@ namespace HangfireWithDotNet5.Controllers
         [HttpGet("/ReccuringJob")]
         public ActionResult CreateReccuringJob()
         {
-            _recurringJobManager.AddOrUpdate("jobId", () => _jobTestService.ReccuringJob(), Cron.Minutely());
+            _recurringJobManager.AddOrUpdate("jobId", () => _jobTestService.ReccuringJob(), Cron.Hourly(2));
             return Ok();
         }
 
@@ -50,7 +50,6 @@ namespace HangfireWithDotNet5.Controllers
         {
             var parentJobId = _backgroundJobClient.Enqueue(() => _jobTestService.FireAndForgetJob());
             _backgroundJobClient.ContinueJobWith(parentJobId, () => _jobTestService.ContinuationJob());
-
             return Ok();
         }
     }
